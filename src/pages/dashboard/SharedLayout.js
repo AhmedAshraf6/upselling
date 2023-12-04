@@ -21,7 +21,7 @@ const SharedLayout = () => {
           <div className='px-4 sm:px-8 py-4'>
             <Navbar />
           </div>
-          <div className='align-element'>
+          <div className='align-element '>
             <Outlet />
           </div>
         </div>

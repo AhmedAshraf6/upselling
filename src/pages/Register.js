@@ -45,7 +45,7 @@ export default function Register() {
           ...data,
         })
       );
-      toast.success('login successfully');
+      toast.success('تم تسجيل دخولك بنجاح');
       navigate('/');
     },
     onError: (error) => {
@@ -68,7 +68,7 @@ export default function Register() {
     const { email, password } = values;
     if (!email || !password) {
       // || (!isMember && !name)
-      toast.error('Please Fill Out All Fields');
+      toast.error('من فضلك أدخل جميع الحقول');
       return;
     }
     loginUserM({ email, password });

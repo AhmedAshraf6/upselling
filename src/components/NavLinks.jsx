@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { currentLinks, requestLinks, userLinks } from '../utils/links';
+import { appStore, main, settings, storeView } from '../utils/links';
 import { useSelector } from 'react-redux';
 
 const NavLinks = () => {
@@ -7,17 +7,16 @@ const NavLinks = () => {
 
   return (
     <div className='flex flex-col '>
-      <h2 className='text-sm text-gray-500'>الحالية</h2>
       <div className='px-3'>
-        {currentLinks.map((link) => {
+        {main.map((link) => {
           const { text, path, id, icon } = link;
           return (
             <NavLink
               to={path}
               className={({ isActive }) => {
                 return isActive
-                  ? 'text-primary flex items-center gap-x-2 text-base py-3 '
-                  : 'text-dark flex items-center gap-x-2 text-base py-3';
+                  ? 'text-primary flex items-center gap-x-2 text-base py-3 text-[16px] font-semibold'
+                  : 'text-black flex items-center gap-x-2 text-base py-3 text-[16px] font-semibold';
               }}
               key={id}
             >
@@ -27,17 +26,19 @@ const NavLinks = () => {
           );
         })}
       </div>
-      <h2 className='text-base text-gray-500'>طلباتي</h2>
+      <h2 className='text-sm text-grayColor font-semibold text-[13px]'>
+        الاعدادات
+      </h2>
       <div className='px-3'>
-        {requestLinks.map((link) => {
+        {settings.map((link) => {
           const { text, path, id, icon } = link;
           return (
             <NavLink
               to={path}
               className={({ isActive }) => {
                 return isActive
-                  ? 'text-primary flex items-center gap-x-2 text-base py-3'
-                  : 'text-dark flex items-center gap-x-2 text-base py-3';
+                  ? 'text-primary flex items-center gap-x-2 text-base py-3 text-[16px] font-semibold'
+                  : 'text-black flex items-center gap-x-2 text-base py-3 text-[16px] font-semibold';
               }}
               key={id}
             >
@@ -47,30 +48,50 @@ const NavLinks = () => {
           );
         })}
       </div>
-      {user?.isAdmin && (
-        <div>
-          <h2 className='text-base text-gray-500'>الاعضاء</h2>
-          <div className='px-3'>
-            {userLinks.map((link) => {
-              const { text, path, id, icon } = link;
-              return (
-                <NavLink
-                  to={path}
-                  className={({ isActive }) => {
-                    return isActive
-                      ? 'text-primary flex items-center gap-x-2 text-base py-3'
-                      : 'text-dark flex items-center gap-x-2 text-base py-3';
-                  }}
-                  key={id}
-                >
-                  <span className='text-lg'>{icon}</span>
-                  {text}
-                </NavLink>
-              );
-            })}
-          </div>
-        </div>
-      )}
+      <h2 className='text-base text-grayColor font-semibold text-[13px]'>
+        مظهر المتجر
+      </h2>
+      <div className='px-3'>
+        {storeView.map((link) => {
+          const { text, path, id, icon } = link;
+          return (
+            <NavLink
+              to={path}
+              className={({ isActive }) => {
+                return isActive
+                  ? 'text-primary flex items-center gap-x-2 text-base py-3 text-[16px] font-semibold'
+                  : 'text-black flex items-center gap-x-2 text-base py-3 text-[16px] font-semibold';
+              }}
+              key={id}
+            >
+              <span className='text-lg'>{icon}</span>
+              {text}
+            </NavLink>
+          );
+        })}
+      </div>
+      <h2 className='text-base text-grayColor font-semibold text-[13px]'>
+        متجر التطبيقات
+      </h2>
+      <div className='px-3'>
+        {appStore.map((link) => {
+          const { text, path, id, icon } = link;
+          return (
+            <NavLink
+              to={path}
+              className={({ isActive }) => {
+                return isActive
+                  ? 'text-primary flex items-center gap-x-2 text-base py-3 text-[16px] font-semibold'
+                  : 'text-black flex items-center gap-x-2 text-base py-3 text-[16px] font-semibold';
+              }}
+              key={id}
+            >
+              <span className='text-lg'>{icon}</span>
+              {text}
+            </NavLink>
+          );
+        })}
+      </div>
     </div>
   );
 };

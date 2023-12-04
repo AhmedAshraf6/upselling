@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { IoIosAlert } from 'react-icons/io';
 import { FaGripHorizontal } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa6';
 import { FaStore } from 'react-icons/fa';
 import Products from './Products';
 import Categories from './Categories';
-
+import productsvg from '../assets/icons/iconMenu.svg';
+import categorysvg from '../assets/icons/icon-Shop.svg';
 export default function SallaInterface() {
   const [active, setActive] = useState('products');
   return (
@@ -16,45 +18,67 @@ export default function SallaInterface() {
         <IoIosAlert />
         <span className='text-gray-500'>يمكنك تفعيل بلاجن واحدة في الثيم</span>
       </div>
-      <div className='grid sm:grid-cols-2 mt-5'>
-        <label
-          className={`flex py-10 cursor-pointer rounded-lg px-3 ${
-            active === 'products' && 'bg-gray-300 border-b-2 border-b-primary'
+      <div className='grid sm:grid-cols-2 mt-5 gap-3' dir='rtl'>
+        <div
+          className={`flex justify-between items-center py-8 cursor-pointer rounded-lg px-4 border-2 border-primary text-primary ${
+            active === 'products' &&
+            'bg-primary border-b-2 border-b-primary text-white'
           }`}
-          htmlFor='products'
+          onClick={(e) => {
+            if (!e.target.classList.contains('toggle')) {
+              setActive('products');
+            }
+          }}
         >
-          <input
-            type='radio'
-            name='radio-1'
-            className='radio radio-primary'
-            checked={active === 'products'}
-            onChange={() => setActive('products')}
-            id='products'
-          />
-          <div className='self-center flex flex-col gap-2 items-center w-full text-primary'>
-            <FaGripHorizontal />
+          <input type='checkbox' className='toggle toggle-primary h-5' />
+          <div className='flex gap-2 items-center '>
+            <img src={productsvg} alt='' />
             <span className='font-bold'>المنتجات</span>
           </div>
-        </label>
-        <label
-          className={`flex py-10 cursor-pointer rounded-lg px-3 ${
-            active === 'categories' && 'bg-gray-300 border-b-2 border-b-primary'
+          <div className='avatar placeholder'>
+            <div
+              className={`${
+                active === 'products'
+                  ? 'bg-base-100 text-primary'
+                  : 'bg-primary text-white'
+              }  rounded-full w-6`}
+            >
+              <span className='text-xs'>
+                <FaCheck />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`flex justify-between items-center py-8 cursor-pointer rounded-lg px-4 border-2 border-primary text-primary ${
+            active === 'categories' &&
+            'bg-primary border-b-2 border-b-primary text-white'
           }`}
-          htmlFor='categories'
+          onClick={(e) => {
+            if (!e.target.classList.contains('toggle')) {
+              setActive('categories');
+            }
+          }}
         >
-          <input
-            type='radio'
-            name='radio-1'
-            className='radio radio-primary'
-            checked={active === 'categories'}
-            onChange={() => setActive('categories')}
-            id='categories'
-          />
-          <div className='self-center flex flex-col gap-2 items-center w-full text-primary'>
-            <FaStore />
+          <input type='checkbox' className='toggle toggle-primary h-5' />
+          <div className='flex gap-2 items-center '>
+            <img src={categorysvg} alt='' />
             <span className='font-bold'>تصنيفات مع منتجاتها</span>
           </div>
-        </label>
+          <div className='avatar placeholder'>
+            <div
+              className={`${
+                active === 'categories'
+                  ? 'bg-base-100 text-primary'
+                  : 'bg-primary text-white'
+              }  rounded-full w-6`}
+            >
+              <span className='text-xs'>
+                <FaCheck />
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
       {active === 'products' ? <Products /> : <Categories />}
     </div>

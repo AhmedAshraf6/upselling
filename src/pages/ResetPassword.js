@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
 import { InputField } from '../components';
@@ -12,7 +12,6 @@ export default function ResetPassword() {
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get('token');
   const email = searchParams.get('email');
-
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();

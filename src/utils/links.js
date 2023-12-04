@@ -3,45 +3,71 @@ import { MdQueryStats } from 'react-icons/md';
 import { FaWpforms } from 'react-icons/fa';
 import { ImProfile } from 'react-icons/im';
 import { v4 as uuidv4 } from 'uuid';
-export const currentLinks = [
+export const settings = [
   {
     id: uuidv4(),
-    text: 'الأعضاء',
-    path: 'approvals',
+    text: 'باقة المتجر',
+    path: '/package',
     icon: <IoBarChartSharp />,
   },
   {
     id: uuidv4(),
-    text: 'المجموعات',
-    path: 'inputrequests',
+    text: 'بيانات التاجر الاساسية',
+    path: '/tager-info',
+    icon: <ImProfile />,
+  },
+  {
+    id: uuidv4(),
+    text: 'بيانات التطبيق',
+    path: '/about-app',
+    icon: <ImProfile />,
+  },
+  {
+    id: uuidv4(),
+    text: 'لوحة التحكم',
+    path: '/dashboard',
     icon: <ImProfile />,
   },
 ];
-export const requestLinks = [
+export const storeView = [
   {
     id: uuidv4(),
-    text: 'اضافة عضو',
-    path: 'drafts',
+    text: 'شاشة البداية',
+    path: '/start-screen',
+    icon: <IoBarChartSharp />,
+  },
+  {
+    id: uuidv4(),
+    text: 'إعدادات المظهر العام',
+    path: '/public-setting-view',
+    icon: <IoBarChartSharp />,
+  },
+  {
+    id: uuidv4(),
+    text: 'تخصيص واجهة التطبيق',
+    path: '/custom-app-view',
     icon: <IoBarChartSharp />,
   },
 ];
-export const userLinks = [
+export const appStore = [
   {
     id: uuidv4(),
-    text: 'All Users',
-    path: 'manage/allusers',
+    text: 'عرض متجر التطبيقات',
+    path: 'app-store',
     icon: <IoBarChartSharp />,
   },
-
+];
+export const main = [
   {
     id: uuidv4(),
-    text: 'All Groups',
-    path: 'manage/allgroups',
-    icon: <ImProfile />,
+    text: 'الرئيسية',
+    path: '/',
+    icon: <IoBarChartSharp />,
   },
-];
-export const navbarLinks = [
-  { id: uuidv4(), text: 'Home', path: '/' },
-  { id: uuidv4(), text: 'All Apps', path: 'allapps' },
-  { id: uuidv4(), text: 'Create App', path: 'createapp' },
+  {
+    id: uuidv4(),
+    text: 'الصفحات التعريفية',
+    path: '/pages-intro',
+    icon: <IoBarChartSharp />,
+  },
 ];

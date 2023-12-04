@@ -4,7 +4,6 @@ import Logo from './Logo';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearStore, toggleSidebar } from '../features/user/userSlice';
 import { Link, NavLink } from 'react-router-dom';
-import { navbarLinks } from '../utils/links';
 import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
 import { useMutation } from '@tanstack/react-query';
 const Navbar = () => {
@@ -16,7 +15,7 @@ const Navbar = () => {
       await customFetch.post('/logout');
     },
     onSuccess: () => {
-      dispatch(clearStore('Logout Successful...'));
+      dispatch(clearStore('تم تسجيل خروجك ...'));
     },
     onError: (error) => {
       checkForUnauthorizedResponse(error, dispatch);
@@ -39,30 +38,7 @@ const Navbar = () => {
       </div>
       {/* <h1 className='text-dark text-3xl font-bold hidden lg:block'>WorkFlow</h1> */}
       <div className='hidden sm:block'>
-        {user?.isAdmin ? (
-          <div>
-            <div className='flex gap-x-3'>
-              {navbarLinks.map((link) => {
-                const { text, path, id } = link;
-                return (
-                  <NavLink
-                    to={path}
-                    className={({ isActive }) => {
-                      return isActive
-                        ? 'text-primary flex items-center gap-x-2 text-base py-3 '
-                        : 'text-dark flex items-center gap-x-2 text-base py-3';
-                    }}
-                    key={id}
-                  >
-                    {text}
-                  </NavLink>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          <h2 className='text-2xl text-primary font-semibold'>Upsells</h2>
-        )}
+        <h2 className='text-2xl text-primary font-semibold'>Upsells</h2>
       </div>
       <div className='relative'>
         <div

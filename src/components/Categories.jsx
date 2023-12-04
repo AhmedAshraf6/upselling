@@ -34,7 +34,7 @@ export default function Categories() {
       },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['myCategories'] });
-        toast.success('deleted successfully');
+        toast.info('تمت الازالة بنجاح');
       },
       onError: (error) => {
         checkForUnauthorizedResponse(error, dispatch);

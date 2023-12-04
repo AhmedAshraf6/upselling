@@ -11,20 +11,38 @@ import { useDispatch } from 'react-redux';
 
 export default function Products() {
   const [open, setOpen] = useState(false);
+  const [myProducts, setMyProducts] = useState([]);
+  const [newProducts, setNewProducts] = useState([]);
+  const [isLoadingMyProducts, setIsloadingMyProducts] = useState(false);
   const handleToggle = () => setOpen((prev) => !prev);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
-  const { data: myProducts, isLoading: isLoadingMyProducts } = useQuery({
-    queryKey: ['myProducts'],
-    queryFn: async () => {
+  // const { data: myProducts, isLoading: isLoadingMyProducts } = useQuery({
+  //   queryKey: ['myProducts'],
+  //   queryFn: async () => {
+  //     const { data } = await customFetch('/products');
+  //     return data.data;
+  //   },
+  //   onError: (error) => {
+  //     checkForUnauthorizedResponse(error, dispatch);
+  //   },
+  // });
+  const fetchMyProducts = async () => {
+    setIsloadingMyProducts(true);
+    try {
       const { data } = await customFetch('/products');
-      return data.data;
-    },
-    onError: (error) => {
+      setMyProducts(data.data);
+      setNewProducts(data.data);
+      setIsloadingMyProducts(false);
+    } catch (error) {
       checkForUnauthorizedResponse(error, dispatch);
-    },
-  });
+      setIsloadingMyProducts(false);
+    }
+  };
+  useEffect(() => {
+    fetchMyProducts();
+  }, []);
 
   // handle delete product
   const { mutate: deleteProductFromDatabase, isLoadingDeleteProduct } =
@@ -35,7 +53,7 @@ export default function Products() {
       },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['myProducts'] });
-        toast.success('deleted successfully');
+        toast.info('تمت الازالة بنجاح');
       },
       onError: (error) => {
         checkForUnauthorizedResponse(error, dispatch);
@@ -45,10 +63,10 @@ export default function Products() {
     deleteProductFromDatabase(product?.id);
   };
   return (
-    <div className='mt-3 sm:mt-5 bg-gray-300 rounded-md py-5 sm:py-10 px-3 '>
+    <div className='mt-3 sm:mt-5 bg-[#F7F7F8] rounded-md py-5 sm:py-10 px-3 '>
       {isLoadingMyProducts ? (
         <span className='loading loading-dots loading-lg mx-auto block'></span>
-      ) : myProducts?.length === 0 ? (
+      ) : newProducts?.length === 0 ? (
         <div className='grid place-items-center'>
           <div
             className='flex flex-col gap-1 justify-center items-center bg-base-100 border-[1px] border-primary w-52 h-44 rounded-lg text-primary cursor-pointer hover:bg-primary transition duration-300 hover:text-base-100'
@@ -67,21 +85,22 @@ export default function Products() {
             </h2>
             <button
               type='button'
-              className='btn btn-sm text-primary'
+              className='btn btn-sm text-primary bg-base-100'
               onClick={handleToggle}
             >
-              اضافة منتج
+              تعديل
               <MdEdit />
             </button>
           </div>
           {/* items */}
-          <div className='flex flex-col gap-3 max-h-[400px] overflow-y-auto mt-3 sm:mt-5'>
+          {/* max-h-[400px] overflow-y-auto  */}
+          <div className='flex flex-col gap-3 mt-3 sm:mt-5'>
             {isLoadingMyProducts || isLoadingDeleteProduct ? (
               <span className='loading loading-dots loading-lg mx-auto block'></span>
             ) : (
-              myProducts?.map((product) => (
+              newProducts?.map((product) => (
                 <div
-                  className={`flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200`}
+                  className={`flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200 bg-base-100`}
                   key={product.id}
                 >
                   <div className='flex gap-3'>
@@ -98,12 +117,14 @@ export default function Products() {
                       {product?.sale_price?.amount && (
                         <span className='text-sm text-gray-400 font-semibold line-through'>
                           {product.price.amount}
+                          {product.price.currency}
                         </span>
                       )}
                       <span className='text-sm text-error font-semibold'>
                         {product?.sale_price?.amount
                           ? product?.sale_price?.amount
                           : product.price.amount}
+                        {product.price.currency}
                       </span>
                     </div>
                   </div>
@@ -113,6 +134,12 @@ export default function Products() {
                 </div>
               ))
             )}
+            <button
+              className='btn btn-primary self-end w-[205px]  rounded-[28px]'
+              type='submit'
+            >
+              حفظ
+            </button>
           </div>
         </form>
       )}
@@ -121,6 +148,8 @@ export default function Products() {
           open={open}
           handleToggle={handleToggle}
           myProducts={myProducts}
+          newProducts={newProducts}
+          setNewProducts={setNewProducts}
         />
       )}
     </div>

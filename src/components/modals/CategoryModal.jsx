@@ -69,7 +69,7 @@ const CategoryModal = ({ open, handleToggle, myCategories }) => {
         handleToggle();
         queryClient.invalidateQueries({ queryKey: ['myCategories'] });
         queryClient.invalidateQueries({ queryKey: ['allCategories'] });
-        toast.success('added successfully');
+        toast.success('تمت الاضافة بنجاح');
       },
       onError: (error) => {
         checkForUnauthorizedResponse(error, dispatch);

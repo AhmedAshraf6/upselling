@@ -8,8 +8,15 @@ import { toast } from 'react-toastify';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
 import { useDispatch } from 'react-redux';
+import { IoAlertCircleOutline } from 'react-icons/io5';
 
-const ProductModal = ({ open, handleToggle, myProducts }) => {
+const ProductModal = ({
+  open,
+  handleToggle,
+  myProducts,
+  newProducts,
+  setNewProducts,
+}) => {
   const modalClass = cn({
     'modal modal-middle': true,
     'modal-open': open,
@@ -17,21 +24,21 @@ const ProductModal = ({ open, handleToggle, myProducts }) => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
   const queryClient = useQueryClient();
-  const {
-    isLoading: isLoadingFetchProducts,
-    data: products,
-    isFetching,
-  } = useQuery({
+  const { isLoading: isLoadingFetchProducts, data: products } = useQuery({
     queryKey: ['allProducts', search],
     queryFn: async () => {
       const { data } = await customFetch(`/get-products?name=${search}`);
       return data.data;
     },
+    cacheTime: 0,
   });
 
-  const [tempProductsAdded, setTempProductsAdded] = useState([]);
+  const [tempProductsAdded, setTempProductsAdded] = useState(newProducts);
   const handleChange = (product) => {
     const isSelected = tempProductsAdded.some((item) => item.id === product.id);
+    if (isSelected && tempProductsAdded.length === 4) {
+      return;
+    }
     if (isSelected) {
       setTempProductsAdded(
         tempProductsAdded.filter((item) => item.id !== product.id)
@@ -53,7 +60,7 @@ const ProductModal = ({ open, handleToggle, myProducts }) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myProducts'] });
       queryClient.invalidateQueries({ queryKey: ['allProducts'] });
-      toast.success('added successfully');
+      toast.success('تمت الاضافة بنجاح');
       handleToggle();
     },
     onError: (error) => {
@@ -62,19 +69,19 @@ const ProductModal = ({ open, handleToggle, myProducts }) => {
   });
   const handleAddToSala = () => {
     if (tempProductsAdded.length === 0) {
-      toast.error('من فضلك أضف بعض المنتجات');
+      // toast.error('من فضلك أضف بعض المنتجات');
       return;
     }
-    if (tempProductsAdded.length + myProducts.length >= 5) {
-      toast.error('يجب ان تكون المنتجات المضافة أقل من 4 ');
+    if (tempProductsAdded.length > 4) {
+      toast.error('عدد المنتجات يجب ان تكون 4 او اقل');
       return;
     }
-    addProducts(tempProductsAdded);
+    setNewProducts(tempProductsAdded);
   };
-
+  console.log(tempProductsAdded);
   return (
-    <dialog id='product_modal' className={modalClass}>
-      <div className='modal-box'>
+    <dialog id='product_modal' className={`${modalClass} `}>
+      <div className='modal-box '>
         <form method='dialog'>
           {/* if there is a button in form, it will close the modal */}
           <button
@@ -106,9 +113,17 @@ const ProductModal = ({ open, handleToggle, myProducts }) => {
               className='text-lg text-base-content absolute top-2 sm:top-3 left-5'
             />
           </div>
+          {newProducts.length === 4 && (
+            <div className='flex gap-2 items-center mt-3 text-[#EAA900] text-base sm:text-lg font-bold'>
+              <IoAlertCircleOutline className='text-2xl' />
+              <span className=''>
+                لقد وصلت للحد الاقصى لإضافة المنتجات في السلة
+              </span>
+            </div>
+          )}
           {/* items */}
           <div className='flex flex-col gap-3 h-[400px] overflow-y-auto'>
-            {isLoadingFetchProducts || isFetching ? (
+            {isLoadingFetchProducts ? (
               <span className='loading loading-dots loading-lg mx-auto block'></span>
             ) : products?.length === 0 ? (
               <h3 className='text-center text-lg font-semibold'>
@@ -116,6 +131,9 @@ const ProductModal = ({ open, handleToggle, myProducts }) => {
               </h3>
             ) : (
               products?.map((product) => {
+                const isSelected = tempProductsAdded.some(
+                  (item) => item.id === product.id
+                );
                 return (
                   <label
                     className={`flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200`}
@@ -129,11 +147,10 @@ const ProductModal = ({ open, handleToggle, myProducts }) => {
                         className='checkbox checkbox-primary self-center '
                         id={product.id}
                         value={product}
-                        checked={tempProductsAdded.some(
-                          (item) => item.id === product.id
-                        )}
+                        checked={isSelected}
                         onClick={() => handleChange(product)}
                         readOnly
+                        disabled={!isSelected && newProducts.length === 4}
                       />
                       <div className='flex gap-2'>
                         <img
@@ -173,7 +190,7 @@ const ProductModal = ({ open, handleToggle, myProducts }) => {
           <button
             className='btn btn-primary btn-sm'
             onClick={handleAddToSala}
-            disabled={isLoadingAddProduct}
+            disabled={isLoadingAddProduct || newProducts.length === 4}
           >
             اضافة المنتجات للسلة
           </button>

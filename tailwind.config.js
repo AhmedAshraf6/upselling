@@ -1,9 +1,15 @@
 module.exports = {
-  content: [
-    // Or if using `src` directory:
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
+    extend: {
+      colors: {
+        grayColor: '#B2B2B2',
+      },
+
+      fontFamily: {
+        primary: 'Arian',
+      },
+    },
     screens: {
       sm: '576px',
       md: '767px',
@@ -11,16 +17,18 @@ module.exports = {
       xl: '1200px',
       xxl: '1400px',
     },
-    // extend: {
-    //   colors: {
-    //     bgLight: '#f0f4f8',
-    //   },
-    // },
   },
-  plugins: [require('@tailwindcss/typography'), require('daisyui')],
+  plugins: [require('daisyui')],
   daisyui: {
-    themes: ['light'],
+    themes: [
+      {
+        mytheme: {
+          primary: '#6464DE',
+          secondary: '#9A9A9A',
+          black: '#000',
+          'base-100': '#ffffff',
+        },
+      },
+    ],
   },
 };
-// dashboard page background
-// #f0f4f8

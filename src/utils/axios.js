@@ -20,6 +20,6 @@ export const checkForUnauthorizedResponse = (error, dispatch) => {
     dispatch(clearStore());
     return toast.error('Unauthorized! Logging Out...');
   }
-  return toast.error(error?.message || error?.response?.data);
+  return toast.error(error?.response?.data?.message || error?.message);
 };
 export default customFetch;
