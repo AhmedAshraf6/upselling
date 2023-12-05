@@ -25,30 +25,32 @@ const ProductModal = ({
   const dispatch = useDispatch();
   const [search, setSearch] = useState('');
   const queryClient = useQueryClient();
-  const [isLoadingFetchProducts, setIsLoadingFetchProducts] = useState(false);
-  const [products, setProducts] = useState([]);
-  // const { isLoading: isLoadingFetchProducts, data: products } = useQuery({
-  //   queryKey: ['allProducts', search],
-  //   queryFn: async () => {
-  //     const { data } = await customFetch(`/get-products?name=${search}`);
-  //     return data.data;
-  //   },
-  //   cacheTime: 0,
-  // });
-  const fetchProducts = async () => {
-    setIsLoadingFetchProducts(true);
-    try {
-      const { data } = await customFetch('/get-products');
-      setProducts(data.data);
-      setIsLoadingFetchProducts(false);
-    } catch (error) {
+  const { isLoading: isLoadingFetchProducts, data: products } = useQuery({
+    queryKey: ['allProducts', search],
+    queryFn: async () => {
+      const { data } = await customFetch(`/get-products?name=${search}`);
+      return data.data;
+    },
+    onError: (error) => {
       checkForUnauthorizedResponse(error, dispatch);
-      setIsLoadingFetchProducts(false);
-    }
-  };
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+    },
+  });
+  // const [isLoadingFetchProducts, setIsLoadingFetchProducts] = useState(false);
+  // const [products, setProducts] = useState([]);
+  // const fetchProducts = async () => {
+  //   setIsLoadingFetchProducts(true);
+  //   try {
+  //     const { data } = await customFetch('/get-products');
+  //     setProducts(data.data);
+  //     setIsLoadingFetchProducts(false);
+  //   } catch (error) {
+  //     checkForUnauthorizedResponse(error, dispatch);
+  //     setIsLoadingFetchProducts(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
 
   const [tempProductsAdded, setTempProductsAdded] = useState(newProducts);
   const handleChange = (product) => {
@@ -67,17 +69,14 @@ const ProductModal = ({
       // toast.error('من فضلك أضف بعض المنتجات');
       return;
     }
-    if (tempProductsAdded.length > 4) {
-      toast.error('عدد المنتجات يجب ان تكون 4 او اقل');
-      return;
-    }
+
     setNewProducts(tempProductsAdded);
     handleToggle();
   };
   console.log(tempProductsAdded);
   return (
     <dialog id='product_modal' className={`${modalClass}`}>
-      <div className='modal-box max-w-[82rem] h-[82rem] p-0'>
+      <div className='modal-box max-w-[82rem] h-[82rem] p-0 overflow-hidden'>
         <form
           method='dialog'
           className='flex justify-between items-center bg-[#F5F7F7] py-2 px-5'
@@ -181,9 +180,9 @@ const ProductModal = ({
             )}
           </div>
           {/* button */}
-          <div className='relative'>
+          <div className='absolute bottom-[20px] left-[50%] -translate-x-[50%]'>
             <button
-              className=' btn-primary btn-sm absolute bottom-[20px] left-[50%] -translate-x-[50%] rounded-3xl btn-wide md:w-[615px]'
+              className=' btn-primary btn-sm  rounded-3xl btn-wide md:w-[615px]'
               onClick={handleAddToSala}
               disabled={tempProductsAdded.length > 4}
             >
