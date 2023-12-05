@@ -12,7 +12,6 @@ export default function StatsContainer() {
       icon: productimage,
       color: 'text-[#6464DE]',
       border: 'border-[#6464DE]',
-
       bcg: 'bg-white',
       desc: 'إجمالي عدد المنتجات التي تم إضافتها للسلة',
     },

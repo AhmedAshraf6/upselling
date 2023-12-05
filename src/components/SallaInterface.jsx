@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { IoIosAlert } from 'react-icons/io';
-import { FaGripHorizontal } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa6';
-import { FaStore } from 'react-icons/fa';
+import { BiStoreAlt } from 'react-icons/bi';
 import Products from './Products';
 import Categories from './Categories';
 import productsvg from '../assets/icons/iconMenu.svg';
@@ -62,7 +61,7 @@ export default function SallaInterface() {
         >
           <input type='checkbox' className='toggle toggle-primary h-5' />
           <div className='flex gap-2 items-center '>
-            <img src={categorysvg} alt='' />
+            <BiStoreAlt className='text-3xl' />
             <span className='font-bold'>تصنيفات مع منتجاتها</span>
           </div>
           <div className='avatar placeholder'>

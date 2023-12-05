@@ -28,6 +28,22 @@ export default function Products() {
   //     checkForUnauthorizedResponse(error, dispatch);
   //   },
   // });
+  // add Products To sala
+  const { mutate: addProducts, isLoading: isLoadingAddProduct } = useMutation({
+    mutationFn: async (products) => {
+      const { data } = await customFetch.post('/products', {
+        products: products,
+      });
+      console.log(data);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success('تمت الاضافة بنجاح');
+    },
+    onError: (error) => {
+      checkForUnauthorizedResponse(error, dispatch);
+    },
+  });
   const fetchMyProducts = async () => {
     setIsloadingMyProducts(true);
     try {
@@ -62,6 +78,14 @@ export default function Products() {
   const deleteProduct = (product) => {
     deleteProductFromDatabase(product?.id);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (newProducts.length + myProducts.length === 0) {
+      toast.error('لا يوجد منتجات لإضافتها');
+      return;
+    }
+    addProducts(newProducts);
+  };
   return (
     <div className='mt-3 sm:mt-5 bg-[#F7F7F8] rounded-md py-5 sm:py-10 px-3 '>
       {isLoadingMyProducts ? (
@@ -77,7 +101,7 @@ export default function Products() {
           </div>
         </div>
       ) : (
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* top */}
           <div className='flex justify-between items-center flex-wrap sm:flex-nowrap gap-3'>
             <h2 className='text-primary text-lg font-semibold'>
@@ -128,9 +152,9 @@ export default function Products() {
                       </span>
                     </div>
                   </div>
-                  <button onClick={() => deleteProduct(product)} type='button'>
+                  {/* <button onClick={() => deleteProduct(product)} type='button'>
                     <MdDelete className='text-xl' />
-                  </button>
+                  </button> */}
                 </div>
               ))
             )}
