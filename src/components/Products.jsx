@@ -34,7 +34,6 @@ export default function Products() {
       const { data } = await customFetch.post('/products', {
         products: products,
       });
-      console.log(data);
       return data;
     },
     onSuccess: () => {
@@ -161,8 +160,13 @@ export default function Products() {
             <button
               className='btn btn-primary self-end w-[205px]  rounded-[28px]'
               type='submit'
+              disabled={isLoadingAddProduct}
             >
-              حفظ
+              {isLoadingAddProduct ? (
+                <span className='loading loading-spinner'></span>
+              ) : (
+                'حفظ'
+              )}
             </button>
           </div>
         </form>

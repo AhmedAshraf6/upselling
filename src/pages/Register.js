@@ -81,7 +81,6 @@ export default function Register() {
   // const toggleMember = () => {
   //   setValues({ ...values, isMember: !values.isMember });
   // };
-  // console.log( );
   return (
     <div className='flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8 bg-bgLight'>
       <div className='w-full max-w-md space-y-8 bg-light  py-10  px-8 rounded-lg border-t-4 border-primary'>

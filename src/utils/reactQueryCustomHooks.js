@@ -297,8 +297,6 @@ export const useCreateApplicationProcessInstanceApprove = () => {
     isLoading: isLoadingApplicationProcessInstanceApprove,
   } = useMutation({
     mutationFn: async ({ processinstancesid, statusTypeId, handleToggle }) => {
-      console.log(processinstancesid);
-      console.log(statusTypeId);
       const { data } = await customFetch.post(
         '/ApplicationProcessInstanceInputs',
         {
@@ -310,7 +308,6 @@ export const useCreateApplicationProcessInstanceApprove = () => {
       return data;
     },
     onSuccess: (data) => {
-      console.log(data);
       queryClient.invalidateQueries({ queryKey: ['get_Approve_requests'] });
       toast.success('added successfully');
     },

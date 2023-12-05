@@ -12,7 +12,7 @@ export default function StatsContainer() {
       icon: productimage,
       color: 'text-[#6464DE]',
       border: 'border-[#6464DE]',
-      bcg: 'bg-white',
+      bcg: 'bg-[#EFEFFB]',
       desc: 'إجمالي عدد المنتجات التي تم إضافتها للسلة',
     },
     {
@@ -21,7 +21,7 @@ export default function StatsContainer() {
       countDesc: 'ر.س',
       icon: salaryImage,
       color: 'text-[#F0B213]',
-      bcg: 'bg-[#fff]',
+      bcg: 'bg-[#FFF9E9]',
       border: 'border-[#F0B213]',
       desc: 'قيمة المنتجات التي أضيفت للسلة',
     },
@@ -32,7 +32,7 @@ export default function StatsContainer() {
       icon: salaryImage2,
       color: 'text-[#5DCA42]',
       border: 'border-[#5DCA42]',
-      bcg: 'bg-[#fff]',
+      bcg: 'bg-[#EFFBF1]',
       desc: 'متوسط قيمة السلة',
     },
   ];

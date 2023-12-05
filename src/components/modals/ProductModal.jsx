@@ -73,7 +73,6 @@ const ProductModal = ({
     setNewProducts(tempProductsAdded);
     handleToggle();
   };
-  console.log(tempProductsAdded);
   return (
     <dialog id='product_modal' className={`${modalClass}`}>
       <div className='modal-box max-w-[82rem] h-[82rem] p-0 overflow-hidden'>

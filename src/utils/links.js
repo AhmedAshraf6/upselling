@@ -1,8 +1,24 @@
 import { IoBarChartSharp } from 'react-icons/io5';
 import { MdQueryStats } from 'react-icons/md';
 import { FaWpforms } from 'react-icons/fa';
+import { RiHome6Fill } from 'react-icons/ri';
+
 import { ImProfile } from 'react-icons/im';
 import { v4 as uuidv4 } from 'uuid';
+export const main = [
+  {
+    id: uuidv4(),
+    text: 'الرئيسية',
+    path: '/',
+    icon: <RiHome6Fill />,
+  },
+  {
+    id: uuidv4(),
+    text: 'الصفحات التعريفية',
+    path: '/pages-intro',
+    icon: <IoBarChartSharp />,
+  },
+];
 export const settings = [
   {
     id: uuidv4(),
@@ -54,20 +70,6 @@ export const appStore = [
     id: uuidv4(),
     text: 'عرض متجر التطبيقات',
     path: 'app-store',
-    icon: <IoBarChartSharp />,
-  },
-];
-export const main = [
-  {
-    id: uuidv4(),
-    text: 'الرئيسية',
-    path: '/',
-    icon: <IoBarChartSharp />,
-  },
-  {
-    id: uuidv4(),
-    text: 'الصفحات التعريفية',
-    path: '/pages-intro',
     icon: <IoBarChartSharp />,
   },
 ];
