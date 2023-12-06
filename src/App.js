@@ -38,11 +38,11 @@ export default function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Stats />} />
+          <Route index element={<Dashboard />} />
           <Route path='package' element={<Package />} />
           <Route path='tager-info' element={<TagerInfo />} />
           <Route path='about-app' element={<AboutApp />} />
-          <Route path='dashboard' element={<Dashboard />} />
+          <Route path='dashboard' element={<Stats />} />
 
           <Route path='start-screen' element={<StartScreen />} />
           <Route path='public-setting-view' element={<PublicSettingView />} />

@@ -130,7 +130,7 @@ const CategoryModal = ({
                   );
                   return (
                     <label
-                      className={`flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200`}
+                      className={`custom-radio flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200`}
                       htmlFor={category.id}
                       key={category.id}
                     >
@@ -138,7 +138,7 @@ const CategoryModal = ({
                         <input
                           type='checkbox'
                           name='radio-1'
-                          className='checkbox checkbox-primary self-center '
+                          className='radio radio-primary self-center '
                           id={category.id}
                           value={category}
                           checked={isSelected}
@@ -176,7 +176,7 @@ const CategoryModal = ({
                 );
                 return (
                   <label
-                    className={`flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200`}
+                    className={`custom-radio flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200`}
                     htmlFor={category.id}
                     key={category.id}
                   >
@@ -184,7 +184,7 @@ const CategoryModal = ({
                       <input
                         type='checkbox'
                         name='radio-1'
-                        className='checkbox checkbox-primary self-center '
+                        className='radio radio-primary self-center '
                         id={category.id}
                         value={category}
                         checked={isSelected}

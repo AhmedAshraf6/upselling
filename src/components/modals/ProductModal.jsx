@@ -73,6 +73,7 @@ const ProductModal = ({
     setNewProducts(tempProductsAdded);
     handleToggle();
   };
+  console.log(products);
   return (
     <dialog id='product_modal' className={`${modalClass}`}>
       <div className='modal-box max-w-[82rem] h-[82rem] p-0 overflow-hidden'>
@@ -128,7 +129,7 @@ const ProductModal = ({
                 );
                 return (
                   <label
-                    className={`flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200`}
+                    className={`custom-radio flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200`}
                     htmlFor={product.id}
                     key={product.id}
                   >
@@ -136,7 +137,7 @@ const ProductModal = ({
                       <input
                         type='checkbox'
                         name='radio-1'
-                        className='checkbox checkbox-primary self-center '
+                        className='radio radio-primary self-center '
                         id={product.id}
                         value={product}
                         checked={isSelected}
@@ -150,18 +151,24 @@ const ProductModal = ({
                           alt='image'
                           className='w-24 h-24 '
                         />
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col gap-1'>
                           <h4 className='text-lg font-semibold'>
                             {product.name.ar}
                           </h4>
 
                           {product?.sale_price?.amount && (
-                            <h2 className='text-sm text-gray-400 font-semibold line-through'>
+                            <h2 className='text-sm text-[#BDBDBD] font-semibold line-through'>
                               <span> {product.price.currency} </span>
                               <span> {product.price.amount} </span>
                             </h2>
                           )}
-                          <h2 className='text-sm text-error font-semibold'>
+                          <h2
+                            className={`${
+                              product?.sale_price?.amount
+                                ? 'text-[#E80000] '
+                                : 'text-primary'
+                            } `}
+                          >
                             <span> {product.sale_price.currency} </span>
                             <span>
                               {product?.sale_price?.amount

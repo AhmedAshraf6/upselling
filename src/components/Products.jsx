@@ -85,6 +85,7 @@ export default function Products() {
     }
     addProducts(newProducts);
   };
+  console.log(myProducts);
   return (
     <div className='mt-3 sm:mt-5 bg-[#F7F7F8] rounded-md py-5 sm:py-10 px-3 '>
       {isLoadingMyProducts ? (
@@ -132,23 +133,31 @@ export default function Products() {
                       alt=''
                       className='w-24 h-24 '
                     />
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col gap-1'>
                       <h4 className='text-lg font-semibold'>
                         {product.name.ar}
                       </h4>
 
                       {product?.sale_price?.amount && (
-                        <span className='text-sm text-gray-400 font-semibold line-through'>
-                          {product.price.amount}
-                          {product.price.currency}
-                        </span>
+                        <h2 className='text-sm text-[#BDBDBD] font-semibold line-through'>
+                          <span> {product.price.currency} </span>
+                          <span> {product.price.amount} </span>
+                        </h2>
                       )}
-                      <span className='text-sm text-error font-semibold'>
-                        {product?.sale_price?.amount
-                          ? product?.sale_price?.amount
-                          : product.price.amount}
-                        {product.price.currency}
-                      </span>
+                      <h2
+                        className={`${
+                          product?.sale_price?.amount
+                            ? 'text-[#E80000] '
+                            : 'text-primary'
+                        } `}
+                      >
+                        <span> {product.sale_price.currency} </span>
+                        <span>
+                          {product?.sale_price?.amount
+                            ? product?.sale_price?.amount
+                            : product.price.amount}
+                        </span>
+                      </h2>
                     </div>
                   </div>
                   {/* <button onClick={() => deleteProduct(product)} type='button'>

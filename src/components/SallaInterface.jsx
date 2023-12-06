@@ -8,6 +8,7 @@ import productsvg from '../assets/icons/iconMenu.svg';
 import categorysvg from '../assets/icons/icon-Shop.svg';
 export default function SallaInterface() {
   const [active, setActive] = useState('products');
+  const [a, setA] = useState('products');
   return (
     <div className='mt-5 sm:mt-10'>
       <h3 className='text-primary text-lg sm:text-xl font-semibold'>
@@ -17,7 +18,7 @@ export default function SallaInterface() {
         <IoIosAlert />
         <span className='text-gray-500'>يمكنك تفعيل بلاجن واحدة في الثيم</span>
       </div>
-      <div className='grid sm:grid-cols-2 mt-5 gap-3' dir='rtl'>
+      <div className='grid sm:grid-cols-2 mt-5 gap-3'>
         <div
           className={`flex justify-between items-center py-8 cursor-pointer rounded-lg px-4 border-2 border-primary text-primary ${
             active === 'products' &&
@@ -29,24 +30,37 @@ export default function SallaInterface() {
             }
           }}
         >
-          <input type='checkbox' className='toggle toggle-primary h-5' />
+          <input
+            type='checkbox'
+            className='toggle toggle-primary bg-[#707070] h-5'
+            checked={a === 'products'}
+            onChange={() => {
+              if (a === 'products') {
+                setA('categories');
+              } else {
+                setA('products');
+              }
+            }}
+          />
           <div className='flex gap-2 items-center '>
             <img src={productsvg} alt='' />
             <span className='font-bold'>المنتجات</span>
           </div>
-          <div className='avatar placeholder'>
-            <div
-              className={`${
-                active === 'products'
-                  ? 'bg-base-100 text-primary'
-                  : 'bg-primary text-white'
-              }  rounded-full w-6`}
-            >
-              <span className='text-xs'>
-                <FaCheck />
-              </span>
+          {a === 'products' && (
+            <div className='avatar placeholder'>
+              <div
+                className={`${
+                  active === 'products'
+                    ? 'bg-base-100 text-primary'
+                    : 'bg-primary text-white'
+                }  rounded-full w-6`}
+              >
+                <span className='text-xs'>
+                  <FaCheck />
+                </span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div
           className={`flex justify-between items-center py-8 cursor-pointer rounded-lg px-4 border-2 border-primary text-primary ${
@@ -59,24 +73,37 @@ export default function SallaInterface() {
             }
           }}
         >
-          <input type='checkbox' className='toggle toggle-primary h-5' />
+          <input
+            type='checkbox'
+            className='toggle toggle-primary h-5 bg-[#707070]'
+            checked={a === 'categories'}
+            onChange={() => {
+              if (a === 'categories') {
+                setA('products');
+              } else {
+                setA('categories');
+              }
+            }}
+          />
           <div className='flex gap-2 items-center '>
             <BiStoreAlt className='text-3xl' />
             <span className='font-bold'>تصنيفات مع منتجاتها</span>
           </div>
-          <div className='avatar placeholder'>
-            <div
-              className={`${
-                active === 'categories'
-                  ? 'bg-base-100 text-primary'
-                  : 'bg-primary text-white'
-              }  rounded-full w-6`}
-            >
-              <span className='text-xs'>
-                <FaCheck />
-              </span>
+          {a === 'categories' && (
+            <div className='avatar placeholder'>
+              <div
+                className={`${
+                  active === 'categories'
+                    ? 'bg-base-100 text-primary'
+                    : 'bg-primary text-white'
+                }  rounded-full w-6`}
+              >
+                <span className='text-xs'>
+                  <FaCheck />
+                </span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       {active === 'products' ? <Products /> : <Categories />}

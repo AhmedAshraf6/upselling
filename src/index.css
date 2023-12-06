@@ -31,7 +31,7 @@ body {
 .visiblenav {
   right: 5%;
 }
-.checkbox:checked,
+/* .checkbox:checked,
 .checkbox[checked='true'],
 .checkbox[aria-checked='true'] {
   background-image: linear-gradient(
@@ -49,6 +49,30 @@ body {
       transparent 40.99%
     ),
     linear-gradient(45deg, hsl(var(--chkfg)) 50%, hsl(var(--chkbg)) 50.99%) !important;
+} */
+.custom-radio input[type='checkbox']:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+  background-color: #e1e2e2;
+  border-radius: 50%;
+  border: 1px solid #9a9a9a;
+  box-shadow: 0 0 0 6px #e1e2e2;
+}
+
+.custom-radio input[type='checkbox'] {
+  opacity: 0.9;
+  background-color: #efeffb;
+  border-radius: 50%;
+  border: 1px solid #6464de;
+  box-shadow: 0 0 0 6px #efeffb;
+}
+.custom-radio input[type='checkbox']:checked {
+  box-shadow: 0 0 0 6px #efeffb;
+  background-color: #6464de;
+  border: none;
+  opacity: 1;
+  /* 
+  border-radius: 50%; */
 }
 ::-webkit-scrollbar {
   width: 8px;
