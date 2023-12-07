@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
-import { InputField } from '../components';
+import { FormReSendPassword, InputField } from '../components';
+import Logo from '../assets/logo- tusk up.svg';
+import mailImage from '../assets/Mail sent-rafiki (2) 1.svg';
+import Typo from '../assets/Typing-bro 1.svg';
+import bgImage from '../assets/Background_image_onboarding screens (1).svg';
 
 export default function ForgetPassword() {
   const [email, setEmail] = useState('');
@@ -54,45 +58,74 @@ export default function ForgetPassword() {
   };
 
   return (
-    <div className='flex min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8 bg-bgLight'>
-      <div className='w-full max-w-md space-y-8 bg-light py-10 px-8 rounded-lg border-t-4 border-primary'>
-        {isSuccess ? (
-          <h3 className='text-center text-lg font-semibold'>
-            تم ارسال رابط اعادة تعيين كلمة السر إلي بريدك الإلكرتوني
-          </h3>
-        ) : (
-          <div>
-            <div>
-              <h2 className='mt-3 sm:mt-6 text-center text-xl sm:text-2xl font-semibold tracking-tight text-dark'>
-                أدخل البريد الإلكتروني لإرسال رمز التأكيد
-              </h2>
+    <div className='min-h-screen bg-[#f0f4f8] grid place-items-center'>
+      <div className=' min-h-[80vh] w-[90vw] mx-auto grid place-items-center'>
+        <div className='bg-base-100  grid w-full lg:grid-cols-2  h-full rounded-tl-[75px] rounded-br-[75px]  rounded-tr-[42px]'>
+          {/* Form */}
+          <div className=' self-center px-5 sm:px-14 py-4 sm:py-10'>
+            <div className='flex justify-center mb-3'>
+              <img src={Logo} alt='logo' />
             </div>
-            <form
-              className='mt-2 sm:mt-8 flex flex-col gap-y-3 sm:gap-y-5'
-              onSubmit={onSubmit}
-            >
-              <InputField
-                placeHolder='البريد الالكتروني'
-                type='email'
-                name='email'
-                value={email}
-                handleChange={handleChange}
+            {isSuccess ? (
+              <FormReSendPassword
+                email={email}
+                ForgetPassword={ForgetPassword}
+                isLoading={isLoading}
               />
-
-              <button
-                type='submit'
-                className='btn btn-primary text-primary-content'
-                disabled={isLoading}
+            ) : (
+              <form
+                className='flex flex-col shadow-lg rounded-[24px] gap-5 py-5 sm:py-28 px-3 sm:px-5 bg-[#F6F6F6]'
+                onSubmit={onSubmit}
               >
-                {isLoading ? (
-                  <span className='loading loading-spinner'></span>
-                ) : (
-                  'إرسال'
-                )}
-              </button>
-            </form>
+                <div className='flex gap-2 items-center self-center'>
+                  <h2 className='text-lg font-bold'>
+                    أدخل البريد الإلكتروني لإعادة كلمة المرور
+                  </h2>
+                </div>
+                <InputField
+                  labelText='البريد الالكتروني'
+                  placeHolder='example@domain.com'
+                  type='email'
+                  name='email'
+                  value={email}
+                  handleChange={handleChange}
+                  autoComplete='email'
+                />
+
+                <button
+                  type='submit'
+                  className='btn btn-primary text-primary-content text-lg'
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <span className='loading loading-spinner'></span>
+                  ) : (
+                    'استمرار'
+                  )}
+                </button>
+                <div className='flex justify-center items-center gap-1 text-primary'>
+                  <span>لديك حساب؟</span>
+                  <Link
+                    to='/register'
+                    className='underline text-lg font-semibold underline-offset-4'
+                  >
+                    تسجيل دخول
+                  </Link>
+                </div>
+              </form>
+            )}
           </div>
-        )}
+          {/* Slider */}
+          <div
+            className=' grid place-items-center rounded-tl-[42px] rounded-br-[75px] '
+            style={{
+              backgroundImage: `url('${bgImage}')`,
+              backgroundSize: 'cover',
+            }}
+          >
+            <img src={Typo} alt='mailImage' />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { IoMdAddCircleOutline } from 'react-icons/io';
-import { ProductModal } from './modals';
-import { MdEdit } from 'react-icons/md';
-import download from '../assets/download.jpg';
-import { MdDelete } from 'react-icons/md';
+import { ProductModal, ProductsPreview } from './modals';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { HiOutlineEye } from 'react-icons/hi2';
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
 import { toast } from 'react-toastify';
@@ -11,23 +11,15 @@ import { useDispatch } from 'react-redux';
 
 export default function Products() {
   const [open, setOpen] = useState(false);
+  const [openProductPreview, setOpenProductPreview] = useState(false);
   const [myProducts, setMyProducts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
   const [isLoadingMyProducts, setIsloadingMyProducts] = useState(false);
   const handleToggle = () => setOpen((prev) => !prev);
+  const handleToggleProductPreview = () =>
+    setOpenProductPreview((prev) => !prev);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-
-  // const { data: myProducts, isLoading: isLoadingMyProducts } = useQuery({
-  //   queryKey: ['myProducts'],
-  //   queryFn: async () => {
-  //     const { data } = await customFetch('/products');
-  //     return data.data;
-  //   },
-  //   onError: (error) => {
-  //     checkForUnauthorizedResponse(error, dispatch);
-  //   },
-  // });
   // add Products To sala
   const { mutate: addProducts, isLoading: isLoadingAddProduct } = useMutation({
     mutationFn: async (products) => {
@@ -107,14 +99,24 @@ export default function Products() {
             <h2 className='text-primary text-lg font-semibold'>
               المنتجات المضافة في واجهة السلة
             </h2>
-            <button
-              type='button'
-              className='btn btn-sm text-primary bg-base-100'
-              onClick={handleToggle}
-            >
-              تعديل
-              <MdEdit />
-            </button>
+            <div className='flex gap-2'>
+              <button
+                type='button'
+                className='btn btn-md text-primary bg-base-100 font-semibold'
+                onClick={handleToggleProductPreview}
+              >
+                معاينة
+                <HiOutlineEye className='text-lg' />
+              </button>
+              <button
+                type='button'
+                className='btn btn-md text-primary bg-base-100 font-semibold'
+                onClick={handleToggle}
+              >
+                تعديل
+                <AiOutlineEdit className='text-lg' />
+              </button>
+            </div>
           </div>
           {/* items */}
           {/* max-h-[400px] overflow-y-auto  */}
@@ -160,9 +162,6 @@ export default function Products() {
                       </h2>
                     </div>
                   </div>
-                  {/* <button onClick={() => deleteProduct(product)} type='button'>
-                    <MdDelete className='text-xl' />
-                  </button> */}
                 </div>
               ))
             )}
@@ -187,6 +186,12 @@ export default function Products() {
           myProducts={myProducts}
           newProducts={newProducts}
           setNewProducts={setNewProducts}
+        />
+      )}
+      {openProductPreview && (
+        <ProductsPreview
+          openProductPreview={openProductPreview}
+          handleToggleProductPreview={handleToggleProductPreview}
         />
       )}
     </div>

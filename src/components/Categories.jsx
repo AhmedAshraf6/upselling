@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { IoMdAddCircleOutline } from 'react-icons/io';
-import { CategoryModal, ProductModal } from './modals';
+import { CategoryModal } from './modals';
 import { MdEdit } from 'react-icons/md';
-import download from '../assets/download.jpg';
-import { MdDelete } from 'react-icons/md';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';

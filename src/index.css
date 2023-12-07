@@ -17,6 +17,9 @@ body {
   .align-element {
     @apply px-2 sm:px-4 lg:px-10 py-2 sm:py-4 lg:py-6 bg-[#f0f4f8] min-h-screen;
   }
+  .align-element-register {
+    @apply max-w-6xl mx-auto px-4 sm:px-8;
+  }
 }
 
 /*  */
@@ -50,6 +53,17 @@ body {
     ),
     linear-gradient(45deg, hsl(var(--chkfg)) 50%, hsl(var(--chkbg)) 50.99%) !important;
 } */
+.swiper-pagination-bullet {
+  background-color: #d9d9d9 !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+.swiper-pagination-bullet-active {
+  background-color: #fff !important;
+  width: 34px !important;
+  height: 18px !important;
+  border-radius: 23px !important;
+}
 .custom-radio input[type='checkbox']:disabled {
   opacity: 0.9;
   cursor: not-allowed;

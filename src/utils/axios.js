@@ -18,7 +18,6 @@ customFetch.interceptors.request.use((config) => {
 export const checkForUnauthorizedResponse = (error, dispatch) => {
   if (error?.response?.status === 401) {
     dispatch(clearStore());
-    return toast.error('Unauthorized! Logging Out...');
   }
   return toast.error(error?.response?.data?.message || error?.message);
 };

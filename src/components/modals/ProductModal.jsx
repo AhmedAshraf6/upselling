@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import cn from 'classnames';
 import { FaSearch } from 'react-icons/fa';
-import download from '../../assets/download.jpg';
-import { MdDelete } from 'react-icons/md';
-import { toast } from 'react-toastify';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../../utils/axios';
 import { useDispatch } from 'react-redux';
 import { IoAlertCircleOutline } from 'react-icons/io5';

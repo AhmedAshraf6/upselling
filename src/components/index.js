@@ -11,3 +11,5 @@ export { default as SmallSidebar } from './SmallSidebar';
 export { default as SallaInterface } from './SallaInterface';
 export { default as Products } from './Products';
 export { default as Categories } from './Categories';
+export { default as Carousel } from './Carousel';
+export { default as FormReSendPassword } from './FormReSendPassword';
