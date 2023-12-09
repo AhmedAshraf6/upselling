@@ -13,7 +13,6 @@ export default function Products() {
   const [open, setOpen] = useState(false);
   const [openProductPreview, setOpenProductPreview] = useState(false);
   const [myProducts, setMyProducts] = useState([]);
-  const [newProducts, setNewProducts] = useState([]);
   const [isLoadingMyProducts, setIsloadingMyProducts] = useState(false);
   const handleToggle = () => setOpen((prev) => !prev);
   const handleToggleProductPreview = () =>
@@ -40,7 +39,6 @@ export default function Products() {
     try {
       const { data } = await customFetch('/products');
       setMyProducts(data.data);
-      setNewProducts(data.data);
       setIsloadingMyProducts(false);
     } catch (error) {
       checkForUnauthorizedResponse(error, dispatch);
@@ -71,18 +69,17 @@ export default function Products() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newProducts.length + myProducts.length === 0) {
+    if (myProducts.length === 0) {
       toast.error('لا يوجد منتجات لإضافتها');
       return;
     }
-    addProducts(newProducts);
+    addProducts(myProducts);
   };
-  console.log(myProducts);
   return (
     <div className='mt-3 sm:mt-5 bg-[#F7F7F8] rounded-md py-5 sm:py-10 px-3 '>
       {isLoadingMyProducts ? (
         <span className='loading loading-dots loading-lg mx-auto block'></span>
-      ) : newProducts?.length === 0 ? (
+      ) : myProducts?.length === 0 ? (
         <div className='grid place-items-center'>
           <div
             className='flex flex-col gap-1 justify-center items-center bg-base-100 border-[1px] border-primary w-52 h-44 rounded-lg text-primary cursor-pointer hover:bg-primary transition duration-300 hover:text-base-100'
@@ -124,7 +121,7 @@ export default function Products() {
             {isLoadingMyProducts || isLoadingDeleteProduct ? (
               <span className='loading loading-dots loading-lg mx-auto block'></span>
             ) : (
-              newProducts?.map((product) => (
+              myProducts?.map((product) => (
                 <div
                   className={`flex justify-between py-2 sm:py-4 cursor-pointer rounded-lg px-3 border-[1px] border-gray-200 bg-base-100`}
                   key={product.id}
@@ -184,14 +181,14 @@ export default function Products() {
           open={open}
           handleToggle={handleToggle}
           myProducts={myProducts}
-          newProducts={newProducts}
-          setNewProducts={setNewProducts}
+          setMyProducts={setMyProducts}
         />
       )}
       {openProductPreview && (
         <ProductsPreview
           openProductPreview={openProductPreview}
           handleToggleProductPreview={handleToggleProductPreview}
+          myProducts={myProducts}
         />
       )}
     </div>

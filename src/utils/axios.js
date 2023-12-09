@@ -5,7 +5,7 @@ import { clearStore } from '../features/user/userSlice';
 import { toast } from 'react-toastify';
 // import { clearStore } from '../features/user/userSlice';
 const customFetch = axios.create({
-  baseURL: 'https://learnandedu.com/api',
+  baseURL: 'https://dashboard.tuskup.appsbunches.com/api',
 });
 
 customFetch.interceptors.request.use((config) => {

@@ -17,10 +17,10 @@ export default function Carousel() {
   return (
     <Swiper
       dir='ltr'
-      // autoplay={{
-      //   delay: 3000,
-      //   disableOnInteraction: false,
-      // }}
+      autoplay={{
+        delay: 3000,
+        disableOnInteraction: false,
+      }}
       modules={[Pagination, Autoplay]}
       spaceBetween={50}
       slidesPerView={'auto'}

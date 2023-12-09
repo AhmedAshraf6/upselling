@@ -30,6 +30,7 @@ export default function Categories() {
   const { mutate: addCategories, isLoading: isLoadingAddCategories } =
     useMutation({
       mutationFn: async (categories) => {
+        console.log(categories);
         const { data } = await customFetch.post('/categories', {
           categories: categories,
         });
@@ -66,7 +67,7 @@ export default function Categories() {
     }
     addCategories(newCategories);
   };
-  console.log(newCategories);
+  // console.log(newCategories);
   return (
     <div className='mt-3 sm:mt-5 bg-[#F7F7F8] rounded-md py-5 sm:py-10 px-3 '>
       {isLoadingMyCategories ? (

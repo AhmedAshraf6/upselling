@@ -9,13 +9,7 @@ import { useDispatch } from 'react-redux';
 import { IoAlertCircleOutline } from 'react-icons/io5';
 import { IoMdClose } from 'react-icons/io';
 
-const ProductModal = ({
-  open,
-  handleToggle,
-  myProducts,
-  newProducts,
-  setNewProducts,
-}) => {
+const ProductModal = ({ open, handleToggle, myProducts, setMyProducts }) => {
   const modalClass = cn({
     'modal modal-middle ': true,
     'modal-open': open,
@@ -50,7 +44,7 @@ const ProductModal = ({
   //   fetchProducts();
   // }, []);
 
-  const [tempProductsAdded, setTempProductsAdded] = useState(newProducts);
+  const [tempProductsAdded, setTempProductsAdded] = useState(myProducts);
   const handleChange = (product) => {
     const isSelected = tempProductsAdded.some((item) => item.id === product.id);
     if (isSelected) {
@@ -68,7 +62,7 @@ const ProductModal = ({
       return;
     }
 
-    setNewProducts(tempProductsAdded);
+    setMyProducts(tempProductsAdded);
     handleToggle();
   };
   console.log(products);
