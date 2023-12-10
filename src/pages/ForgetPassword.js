@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
-import { FormReSendPassword, InputField } from '../components';
+import { Footer, FormReSendPassword, InputField } from '../components';
 import Logo from '../assets/logo- tusk up.svg';
 import mailImage from '../assets/Mail sent-rafiki (2) 1.svg';
 import Typo from '../assets/Typing-bro 1.svg';
@@ -60,7 +60,7 @@ export default function ForgetPassword() {
   return (
     <div className='min-h-screen bg-[#f0f4f8] grid place-items-center'>
       <div className=' min-h-[80vh] w-[90vw] mx-auto grid place-items-center'>
-        <div className='bg-base-100  grid w-full lg:grid-cols-2  h-full rounded-tl-[75px] rounded-br-[75px]  rounded-tr-[42px]'>
+        <div className='bg-base-100  grid w-full lg:grid-cols-2  h-full rounded-tl-[42px] rounded-br-[42px]  rounded-tr-[42px]'>
           {/* Form */}
           <div className=' self-center px-5 sm:px-14 py-4 sm:py-10'>
             <div className='flex justify-center mb-3'>
@@ -117,7 +117,7 @@ export default function ForgetPassword() {
           </div>
           {/* Slider */}
           <div
-            className=' grid place-items-center rounded-tl-[42px] rounded-br-[75px] '
+            className=' grid place-items-center rounded-tl-[42px] rounded-br-[42px] '
             style={{
               backgroundImage: `url('${bgImage}')`,
               backgroundSize: 'cover',
@@ -127,6 +127,7 @@ export default function ForgetPassword() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

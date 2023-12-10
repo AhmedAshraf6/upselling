@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        grayColor: '#B2B2B2',
+        grayColor: '#9A9A9A',
       },
 
       fontFamily: {

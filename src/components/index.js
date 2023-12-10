@@ -13,3 +13,6 @@ export { default as Products } from './Products';
 export { default as Categories } from './Categories';
 export { default as Carousel } from './Carousel';
 export { default as FormReSendPassword } from './FormReSendPassword';
+export { default as SmallLoading } from './SmallLoading';
+export { default as SubscribeDetails } from './SubscribeDetails';
+export { default as Footer } from './Footer';

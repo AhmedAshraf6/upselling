@@ -5,7 +5,7 @@ import { loginUser } from '../features/user/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
-import { Carousel, InputField } from '../components';
+import { Carousel, Footer, InputField } from '../components';
 import Logo from '../assets/logo- tusk up.svg';
 import Wave from '../assets/icon - wave.svg';
 import iconEye from '../assets/icon - eye.svg';
@@ -14,7 +14,6 @@ import iconCheck from '../assets/Icon - Check.svg';
 import iconUnCheck from '../assets/Icon - Uncheck.svg';
 import bgImage from '../assets/Background_image_onboarding screens (1).svg';
 import { LuEyeOff } from 'react-icons/lu';
-import { addUserToLocalStorage } from '../utils/localStorage';
 
 export default function Register() {
   const [values, setValues] = useState({});
@@ -92,7 +91,7 @@ export default function Register() {
   return (
     <div className='min-h-screen bg-[#f0f4f8] grid place-items-center'>
       <div className=' min-h-[80vh] w-[90vw] mx-auto grid place-items-center'>
-        <div className='bg-base-100  grid  lg:grid-cols-2  h-full rounded-tl-[75px] rounded-br-[42px] rounded-tr-[75px]  '>
+        <div className='bg-base-100  grid  lg:grid-cols-2  h-full rounded-tl-[42px] rounded-br-[42px] rounded-tr-[42px]  '>
           {/* Form */}
           <div className=' self-center px-5 sm:px-14 py-4 sm:py-10 '>
             <div className='flex justify-center mb-3'>
@@ -134,14 +133,14 @@ export default function Register() {
                   <img
                     src={iconEye}
                     alt='eye-icon'
-                    className='absolute bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
+                    className='absolute bottom-1 sm:bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
                     onClick={handleEyeLogic}
                   />
                 ) : (
                   <img
                     src={iconEyeHide}
                     alt='eye-icon'
-                    className='absolute bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
+                    className='absolute bottom-1 sm:bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
                     onClick={handleEyeLogic}
                   />
                 )}
@@ -190,7 +189,7 @@ export default function Register() {
           </div>
           {/* Slider */}
           <div
-            className='grid place-items-center rounded-tl-[42px] rounded-br-[75px]  '
+            className='grid place-items-center rounded-tl-[42px] rounded-br-[42px]  '
             style={{
               backgroundImage: `url('${bgImage}')`,
               backgroundSize: 'cover',
@@ -200,6 +199,7 @@ export default function Register() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

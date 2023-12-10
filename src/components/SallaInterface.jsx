@@ -6,14 +6,81 @@ import Products from './Products';
 import Categories from './Categories';
 import productsvg from '../assets/icons/iconMenu.svg';
 import categorysvg from '../assets/icons/icon-Shop.svg';
-export default function SallaInterface() {
+import toggleImgOFF from '../assets/icons/toggleOff.svg';
+import toggleImgOnn from '../assets/icons/toggleOn.svg';
+import toggleActive from '../assets/icons/toggleActive.svg';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
+import { useDispatch } from 'react-redux';
+import SmallLoading from './SmallLoading';
+export default function SallaInterface({ data, isLoadingProfile }) {
   const [active, setActive] = useState('products');
+  const queryClient = useQueryClient();
   const [a, setA] = useState('products');
+  const [d, setD] = useState(false);
+  const dispatch = useDispatch();
+  const { mutate: handleScriptStatus, isLoading: isLoadingScriptStatus } =
+    useMutation({
+      mutationFn: async (status) => {
+        const { data } = await customFetch.post('/update-zid-script', {
+          status,
+        });
+        console.log(data);
+        return data;
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['profile'] });
+      },
+      onError: (error) => {
+        checkForUnauthorizedResponse(error, dispatch);
+      },
+    });
+  const { mutate: handlePopupSelection, isLoading: isLoadingPopupSelection } =
+    useMutation({
+      mutationFn: async ({ id, allowed_display_in_script }) => {
+        const { data } = await customFetch.post('/update-content-zid-script', {
+          id,
+          allowed_display_in_script,
+        });
+        console.log(data);
+        return data;
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['profile'] });
+      },
+      onError: (error) => {
+        checkForUnauthorizedResponse(error, dispatch);
+      },
+    });
   return (
     <div className='mt-5 sm:mt-10'>
-      <h3 className='text-primary text-lg sm:text-xl font-semibold'>
-        قسم واجهة السلة
-      </h3>
+      <div className='flex items-center gap-2'>
+        <h3 className='text-primary text-lg sm:text-xl font-semibold'>
+          قسم واجهة السلة
+        </h3>
+        {data?.store?.zid_script_status ? (
+          <button
+            onClick={() => handleScriptStatus(false)}
+            disabled={isLoadingProfile || isLoadingScriptStatus}
+            className={`${isLoadingScriptStatus && 'cursor-not-allowed'}`}
+          >
+            <img src={toggleImgOnn} alt='toggole on' className='toggleScript' />
+          </button>
+        ) : (
+          <button
+            onClick={() => handleScriptStatus(true)}
+            disabled={isLoadingProfile || isLoadingScriptStatus}
+            className={`${isLoadingScriptStatus && 'cursor-not-allowed'}`}
+          >
+            <img src={toggleImgOFF} alt='toggole on' className='toggleScript' />
+          </button>
+        )}
+        {/* <input
+          type='checkbox'
+          className='toggle toggle-primary bg-[#707070] h-5'
+          // checked={a === 'products'}
+        /> */}
+      </div>
       <div className='flex gap-2 items-center mt-3'>
         <IoIosAlert />
         <span className='text-gray-500'>يمكنك تفعيل بلاجن واحدة في الثيم</span>
@@ -25,42 +92,74 @@ export default function SallaInterface() {
             'bg-primary border-b-2 border-b-primary text-white'
           }`}
           onClick={(e) => {
-            if (!e.target.classList.contains('toggle')) {
+            if (!e.target.classList.contains('toggleScript')) {
               setActive('products');
             }
           }}
         >
-          <input
-            type='checkbox'
-            className='toggle toggle-primary bg-[#707070] h-5'
-            checked={a === 'products'}
-            onChange={() => {
-              if (a === 'products') {
-                setA('categories');
-              } else {
-                setA('products');
+          {data?.store?.subscription_plane?.allowed_display_in_script ===
+          'products' ? (
+            <button
+              onClick={() =>
+                handlePopupSelection({
+                  id: data?.store?.subscription_plane?.id,
+                  allowed_display_in_script: 'products',
+                })
               }
-            }}
-          />
+              disabled={isLoadingProfile || isLoadingPopupSelection}
+              className={`${
+                isLoadingPopupSelection && 'cursor-not-allowed'
+              } toggleScript `}
+            >
+              <img
+                src={`${active === 'products' ? toggleActive : toggleImgOnn}`}
+                alt='toggole on'
+                className='toggleScript'
+              />
+            </button>
+          ) : (
+            <button
+              onClick={() =>
+                handlePopupSelection({
+                  id: data?.store?.subscription_plane?.id,
+                  allowed_display_in_script: 'products',
+                })
+              }
+              disabled={isLoadingProfile || isLoadingPopupSelection}
+              className={`${
+                isLoadingPopupSelection && 'cursor-not-allowed'
+              } toggleScript `}
+            >
+              <img
+                src={toggleImgOFF}
+                alt='toggole on'
+                className='toggleScript'
+              />
+            </button>
+          )}
+
           <div className='flex gap-2 items-center '>
             <img src={productsvg} alt='' />
             <span className='font-bold'>المنتجات</span>
           </div>
-          {a === 'products' && (
-            <div className='avatar placeholder'>
-              <div
-                className={`${
-                  active === 'products'
-                    ? 'bg-base-100 text-primary'
-                    : 'bg-primary text-white'
-                }  rounded-full w-6`}
-              >
-                <span className='text-xs'>
-                  <FaCheck />
-                </span>
+          <div>
+            {data?.store?.subscription_plane?.allowed_display_in_script ===
+              'products' && (
+              <div className='avatar placeholder'>
+                <div
+                  className={`${
+                    active === 'products'
+                      ? 'bg-base-100 text-primary'
+                      : 'bg-primary text-white'
+                  }  rounded-full w-6`}
+                >
+                  <span className='text-xs'>
+                    <FaCheck />
+                  </span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div
           className={`flex justify-between items-center py-8 cursor-pointer rounded-lg px-4 border-2 border-primary text-primary ${
@@ -68,42 +167,73 @@ export default function SallaInterface() {
             'bg-primary border-b-2 border-b-primary text-white'
           }`}
           onClick={(e) => {
-            if (!e.target.classList.contains('toggle')) {
+            if (!e.target.classList.contains('toggleScript')) {
               setActive('categories');
             }
           }}
         >
-          <input
-            type='checkbox'
-            className='toggle toggle-primary h-5 bg-[#707070]'
-            checked={a === 'categories'}
-            onChange={() => {
-              if (a === 'categories') {
-                setA('products');
-              } else {
-                setA('categories');
+          {data?.store?.subscription_plane?.allowed_display_in_script ===
+          'categories' ? (
+            <button
+              onClick={() =>
+                handlePopupSelection({
+                  id: data?.store?.subscription_plane?.id,
+                  allowed_display_in_script: 'categories',
+                })
               }
-            }}
-          />
+              disabled={isLoadingProfile || isLoadingPopupSelection}
+              className={`${
+                isLoadingPopupSelection && 'cursor-not-allowed'
+              } toggleScript `}
+            >
+              <img
+                src={`${active === 'categories' ? toggleActive : toggleImgOnn}`}
+                alt='toggole on'
+                className='toggleScript'
+              />
+            </button>
+          ) : (
+            <button
+              onClick={() =>
+                handlePopupSelection({
+                  id: data?.store?.subscription_plane?.id,
+                  allowed_display_in_script: 'categories',
+                })
+              }
+              disabled={isLoadingProfile || isLoadingPopupSelection}
+              className={`${
+                isLoadingPopupSelection && 'cursor-not-allowed'
+              }  toggleScript `}
+            >
+              <img
+                src={toggleImgOFF}
+                alt='toggole on'
+                className='toggleScript'
+              />
+            </button>
+          )}
           <div className='flex gap-2 items-center '>
             <BiStoreAlt className='text-3xl' />
             <span className='font-bold'>تصنيفات مع منتجاتها</span>
           </div>
-          {a === 'categories' && (
-            <div className='avatar placeholder'>
-              <div
-                className={`${
-                  active === 'categories'
-                    ? 'bg-base-100 text-primary'
-                    : 'bg-primary text-white'
-                }  rounded-full w-6`}
-              >
-                <span className='text-xs'>
-                  <FaCheck />
-                </span>
+          <div>
+            {data?.store?.subscription_plane?.allowed_display_in_script ===
+              'categories' && (
+              <div className='avatar placeholder'>
+                <div
+                  className={`${
+                    active === 'categories'
+                      ? 'bg-base-100 text-primary'
+                      : 'bg-primary text-white'
+                  }  rounded-full w-6`}
+                >
+                  <span className='text-xs'>
+                    <FaCheck />
+                  </span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
       {active === 'products' ? <Products /> : <Categories />}

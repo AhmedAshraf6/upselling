@@ -23,7 +23,7 @@ const ProductsPreview = ({
 
   return (
     <dialog id='product_modal' className={`${modalClass}`}>
-      <div className='modal-box max-w-[82rem] h-[82rem] p-0 overflow-hidden'>
+      <div className='modal-box  max-w-[82rem] p-0 overflow-hidden'>
         <form
           method='dialog'
           className='flex justify-between items-center bg-[#F5F7F7] py-2 px-5'
@@ -35,7 +35,7 @@ const ProductsPreview = ({
             <IoMdClose className='font-bold text-black text-lg' />
           </button>
         </form>
-        <div className=' h-full w-full flex justify-center items-center px-5 sm:px-10'>
+        <div className=' h-full w-full flex justify-center items-center px-5 sm:px-10 py-24'>
           <Swiper
             slidesPerView={1}
             spaceBetween={10}

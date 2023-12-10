@@ -22,6 +22,7 @@ import {
   CustomAppView,
   AppStore,
   PagesIntro,
+  Profile,
 } from './pages/dashboard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,7 +39,8 @@ export default function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Dashboard />} />
+          <Route index element={<Stats />} />
+          <Route path='profile' element={<Profile />} />
           <Route path='package' element={<Package />} />
           <Route path='tager-info' element={<TagerInfo />} />
           <Route path='about-app' element={<AboutApp />} />
@@ -51,11 +53,6 @@ export default function App() {
           <Route path='app-store' element={<AppStore />} />
 
           <Route path='pages-intro' element={<PagesIntro />} />
-
-          {/* Prottected Admin */}
-          {/* <Route element={<ProtectedAdmin />}>
-            <Route path='allapps' element={<AllApps />} />
-          </Route> */}
         </Route>
 
         <Route path='register' element={<Register />} />

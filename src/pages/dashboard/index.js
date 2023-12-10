@@ -7,6 +7,7 @@ import Dashboard from './Dashboard';
 import InputReuest from './InputReuest';
 import Package from './Package';
 import PagesIntro from './PagesIntro';
+import Profile from './Profile';
 import PublicSettingView from './PublicSettingView';
 import SharedLayout from './SharedLayout';
 import StartScreen from './StartScreen';
@@ -28,4 +29,5 @@ export {
   CustomAppView,
   AppStore,
   PagesIntro,
+  Profile,
 };

@@ -93,7 +93,7 @@ export default function ResetPassword() {
 
   return (
     <div className='min-h-screen bg-[#f0f4f8] grid place-items-center'>
-      <div className='align-element-register h-[80vh] w-[80vw]'>
+      <div className='align-element-register h-[80vh] w-full sm:w-[80vw]'>
         <div className='bg-base-100 h-full rounded-[42px] w-full '>
           {/* Form */}
           <div className='max-w-xl  relative top-[50%] -translate-y-[50%] mx-auto  px-5 sm:px-14 py-4 sm:py-10'>
@@ -121,14 +121,14 @@ export default function ResetPassword() {
                   <img
                     src={iconEye}
                     alt='eye-icon'
-                    className='absolute bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
+                    className='absolute bottom-1 sm:bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
                     onClick={handleEyeLogic}
                   />
                 ) : (
                   <img
                     src={iconEyeHide}
                     alt='eye-icon'
-                    className='absolute bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
+                    className='absolute bottom-1 sm:bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
                     onClick={handleEyeLogic}
                   />
                 )}
@@ -147,21 +147,21 @@ export default function ResetPassword() {
                   <img
                     src={iconEye}
                     alt='eye-icon'
-                    className='absolute bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
+                    className='absolute bottom-1 sm:bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
                     onClick={handleEyeLogicConfirmPassword}
                   />
                 ) : (
                   <img
                     src={iconEyeHide}
                     alt='eye-icon'
-                    className='absolute bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
+                    className='absolute bottom-1 sm:bottom-3 left-3 w-[24px] h-[24px] cursor-pointer'
                     onClick={handleEyeLogicConfirmPassword}
                   />
                 )}
               </div>
               <button
                 type='submit'
-                className='btn btn-primary text-primary-content text-lg'
+                className='btn btn-primary btn-sm sm:btn-md text-primary-content text-lg'
                 disabled={isLoading}
               >
                 {isLoading ? (
