@@ -196,7 +196,7 @@ const CategoryModal = ({
                       />
                       <div className='flex gap-2'>
                         <img
-                          src={category?.main_image}
+                          src={category?.image}
                           alt='image'
                           className='w-24 h-24 '
                         />

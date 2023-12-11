@@ -62,7 +62,7 @@ const ProductsPreview = ({
             }}
             className='w-full '
           >
-            <div className='absolute inset-0 flex items-center justify-between z-10'>
+            <div className=' absolute inset-0 flex items-center justify-between z-10'>
               <div className='custom-prev cursor-pointer'>
                 <img src={arrowRight} alt='' />
               </div>

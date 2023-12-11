@@ -67,7 +67,7 @@ export default function Categories() {
     }
     addCategories(newCategories);
   };
-  // console.log(newCategories);
+  console.log(newCategories);
   return (
     <div className='mt-3 sm:mt-5 bg-[#F7F7F8] rounded-md py-5 sm:py-10 px-3 '>
       {isLoadingMyCategories ? (
@@ -110,11 +110,7 @@ export default function Categories() {
                   key={category.id}
                 >
                   <div className='flex gap-3'>
-                    <img
-                      src={category?.main_image}
-                      alt=''
-                      className='w-24 h-24 '
-                    />
+                    <img src={category?.image} alt='' className='w-24 h-24 ' />
                     <div className='flex flex-col'>
                       <h4 className='text-lg font-semibold'>
                         {category?.name}

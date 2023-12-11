@@ -13,11 +13,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import customFetch, { checkForUnauthorizedResponse } from '../utils/axios';
 import { useDispatch } from 'react-redux';
 import SmallLoading from './SmallLoading';
+import { toast } from 'react-toastify';
 export default function SallaInterface({ data, isLoadingProfile }) {
   const [active, setActive] = useState('products');
   const queryClient = useQueryClient();
-  const [a, setA] = useState('products');
-  const [d, setD] = useState(false);
+
   const dispatch = useDispatch();
   const { mutate: handleScriptStatus, isLoading: isLoadingScriptStatus } =
     useMutation({
@@ -25,7 +25,6 @@ export default function SallaInterface({ data, isLoadingProfile }) {
         const { data } = await customFetch.post('/update-zid-script', {
           status,
         });
-        console.log(data);
         return data;
       },
       onSuccess: () => {
@@ -58,7 +57,9 @@ export default function SallaInterface({ data, isLoadingProfile }) {
         <h3 className='text-primary text-lg sm:text-xl font-semibold'>
           قسم واجهة السلة
         </h3>
-        {data?.store?.zid_script_status ? (
+        {isLoadingScriptStatus || isLoadingProfile ? (
+          <SmallLoading />
+        ) : data?.store?.zid_script_status ? (
           <button
             onClick={() => handleScriptStatus(false)}
             disabled={isLoadingProfile || isLoadingScriptStatus}
@@ -97,8 +98,10 @@ export default function SallaInterface({ data, isLoadingProfile }) {
             }
           }}
         >
-          {data?.store?.subscription_plane?.allowed_display_in_script ===
-          'products' ? (
+          {isLoadingPopupSelection ? (
+            <SmallLoading txtColor='text-grayColor' />
+          ) : data?.store?.subscription_plane?.allowed_display_in_script ===
+            'products' ? (
             <button
               onClick={() =>
                 handlePopupSelection({
@@ -172,8 +175,10 @@ export default function SallaInterface({ data, isLoadingProfile }) {
             }
           }}
         >
-          {data?.store?.subscription_plane?.allowed_display_in_script ===
-          'categories' ? (
+          {isLoadingPopupSelection ? (
+            <SmallLoading txtColor='text-grayColor' />
+          ) : data?.store?.subscription_plane?.allowed_display_in_script ===
+            'categories' ? (
             <button
               onClick={() =>
                 handlePopupSelection({
